@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCategoriaRequest;
+use App\Models\Caracteristica;
+use DragonCode\Support\Facades\Facade;
+use Illuminate\Container\Attributes\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB as FacadesDB;
 
 class categoriaController extends Controller
 {
@@ -28,7 +32,19 @@ class categoriaController extends Controller
      */
     public function store(StoreCategoriaRequest $request)
     {
-        //
+        //dd($request);
+        try {
+            FacadesDB::beginTransaction();
+            $caracteristica = Caracteristica::create($request->validated());
+            $caracteristica->categoria()->create([
+                'caracteristica_id' => $caracteristica->id
+            ]);
+            FacadesDB::commit();
+        } catch (\Exception $e) {
+            FacadesDB::rollBack();            
+        }
+
+        return redirect()->route('categorias.index')->with('success', 'Categoria creada exitosamente.');
     }
 
     /**
