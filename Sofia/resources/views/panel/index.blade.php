@@ -4,6 +4,11 @@
 
 @push('css')
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+<style>
+    body{
+        font-size: 12px!important;
+    }
+</style>
 @endpush
 
 @section('content')

@@ -1,6 +1,6 @@
 @extends('template')
 
-@section('title', 'Categorías')
+@section('title', 'Presentaciones')
 
 @push('css')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -31,14 +31,14 @@
 @endif
 
 <div class="container-fluid px-4">
-    <h1 class="mt-4 text-center">Categorías</h1>
+    <h1 class="mt-4 text-center">Presentaciones</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a href="{{ route('panel') }}">Inicio</a></li>
-        <li class="breadcrumb-item active">Categorías</li>
+        <li class="breadcrumb-item active">Presentaciones</li>
     </ol>
 
     <div class="mb-4">
-        <a href="{{ route('categorias.create') }}">
+        <a href="{{ route('presentaciones.create') }}">
             <button class="btn btn-primary">Añadir nuevo registro</button>
         </a>
     </div>
@@ -46,7 +46,7 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Tabla Categorías
+            Tabla Presentaciones
         </div>
         <div class="card-body">
             <table id="datatablesSimple">
@@ -59,25 +59,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ( $categorias as $categoria )
+                    @foreach ( $presentaciones as $presentacione )
                     <tr>
-                        <td>{{ $categoria->caracteristica->nombre }}</td>
-                        <td>{{ $categoria->caracteristica->descripcion }}</td>
+                        <td>{{ $presentacione->caracteristica->nombre }}</td>
+                        <td>{{ $presentacione->caracteristica->descripcion }}</td>
                         <td>
-                            @if ( $categoria->caracteristica->estado == 1 )
+                            @if ( $presentacione->caracteristica->estado == 1 )
                                 <span class="fw-bolder p-1 rounded bg-success text-white">Activo</span>
                             @else
                                  <span class="fw-bolder p-1 rounded bg-danger text-white">Eliminado</span>
                             @endif
                         <td>
                             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                                <form action="{{ route('categorias.edit', ['categoria' => $categoria]) }}" method="get">
+                                <form action="{{ route('presentaciones.edit', ['presentacione' => $presentacione]) }}" method="get">
                                     <button type="submit" class="btn btn-warning">Editar</button>
                                 </form>
-                                @if ($categoria->caracteristica->estado == 1)
-                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal-{{ $categoria->id }}">Eliminar</button>
+                                @if ($presentacione->caracteristica->estado == 1)
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal-{{ $presentacione->id }}">Eliminar</button>
                                 @else
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmModal-{{ $categoria->id }}">Restaurar</button>
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmModal-{{ $presentacione->id }}">Restaurar</button>
                                 @endif
                                 
                                 
@@ -86,7 +86,7 @@
                     </tr>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="confirmModal-{{ $categoria->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="confirmModal-{{ $presentacione->id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -94,12 +94,12 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    {{ $categoria->caracteristica->estado == 1 ? '¿está seguro de eliminar este registro?' : '¿está seguro de restaurar este registro?' }} -
-                                    {{ $categoria->id }}
+                                    {{ $presentacione->caracteristica->estado == 1 ? '¿está seguro de eliminar este registro?' : '¿está seguro de restaurar este registro?' }} -
+                                    {{ $presentacione->id }}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                    <form action="{{ route('categorias.destroy', ['categoria' => $categoria->id]) }}" method="post">
+                                    <form action="{{ route('presentaciones.destroy', ['presentacione' => $presentacione->id]) }}" method="post">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="btn btn-primary">Confirmar</button>
