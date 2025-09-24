@@ -22,14 +22,14 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre', $categoria->caracteristica->nombre) }}">
+                    <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre', $marca->caracteristica->nombre) }}">
                     @error('nombre')
                     <small class="text-danger">{{ '*'.$message }}</small>
                     @enderror
                 </div>
                 <div class="col-md-12">
                     <label for="descripcion" class="form-label">Descripción</label>
-                    <textarea class="form-control" name="descripcion" id="descripcion" rows="3">{{ old('descripcion', $categoria->caracteristica->descripcion) }}</textarea>
+                    <textarea class="form-control" name="descripcion" id="descripcion" rows="3">{{ old('descripcion', $marca->caracteristica->descripcion) }}</textarea>
                     @error('descripcion')
                     <small class="text-danger">{{ '*'.$message }}</small>
                     @enderror

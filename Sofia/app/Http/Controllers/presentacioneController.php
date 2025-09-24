@@ -36,8 +36,9 @@ class presentacioneController extends Controller
     {
         //dd($request);
         try {
+
             FacadesDB::beginTransaction();
-            $caracteristica = Caracteristica::create($request->validated());
+            $caracteristica=Caracteristica::create($request->validated());    
             $caracteristica->presentacione()->create([
                 'caracteristica_id' => $caracteristica->id
             ]);
